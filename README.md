@@ -14,8 +14,12 @@ This platform ingests Entra ID / M365-style logs, detects suspicious identity ac
 - Suspicious OAuth consent
 - Suspicious mailbox forwarding
 
-## Tech stack
-Next.js, TypeScript, FastAPI, Python, PostgreSQL, Docker, Pandas, Tailwind CSS.
+## Planned Tech Stack
+- Backend: Python, FastAPI, SQLAlchemy, Pandas
+- Database: PostgreSQL
+- Frontend: Next.js, TypeScript, Tailwind CSS
+- DevOps: Docker Compose
+- Testing: Pytest
 
 ## Screenshots
 Dashboard, case view, timeline, report export.

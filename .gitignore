@@ -17,7 +17,8 @@ out/
 .DS_Store
 Thumbs.db
 
-# Reports / generated files
+# Generated files
 *.log
 *.pdf
-backend/uploads/
+reports/
+uploads/
