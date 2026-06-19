@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api import upload
+from app.api import upload, events
 from app.database import Base, engine
 from app.models import Event
 
@@ -13,6 +13,7 @@ app = FastAPI(
 )
 
 app.include_router(upload.router, prefix="/upload",tags= ["Upload"])
+app.include_router(events.router, prefix="/events", tags=["Events"])
 
 @app.get("/health")
 def health_check():
