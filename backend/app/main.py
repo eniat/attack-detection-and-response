@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from app.api import upload, events
 from app.database import Base, engine
-from app.models import Event
+from app.models import Event, Alert
 
 Base.metadata.create_all(bind=engine)
 
