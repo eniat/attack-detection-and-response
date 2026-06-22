@@ -1,0 +1,22 @@
+id: DET-002
+name: Brute Force Login Attempt
+description: Detects repeated failed login attempts against a single user from one source IP.
+severity: Medium
+mitre:
+  tactic: Credential Access
+  technique_id: T1110
+  technique_name: Brute Force
+logic:
+  min_failed_attempts: 10
+  grouping:
+    - source_ip
+    - user_principal_name
+recommended_actions:
+  - Review whether the account later authenticated successfully.
+  - Reset the user's password if compromise is suspected.
+  - Confirm MFA status.
+  - Block the source IP if malicious.
+false_positives:
+  - User forgot password
+  - Password manager misconfiguration
+  - Legacy application using stale credentials
