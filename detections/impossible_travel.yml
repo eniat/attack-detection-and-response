@@ -1,0 +1,21 @@
+id: DET-003
+name: Impossible Travel
+description: Detects successful logins from different countries within an unrealistic time window.
+severity: High
+mitre:
+  tactic: Initial Access
+  technique_id: T1078
+  technique_name: Valid Accounts
+logic:
+  max_hours_between_logins: 2
+  require_different_countries: true
+recommended_actions:
+  - Confirm whether the user was travelling.
+  - Review VPN or proxy usage.
+  - Revoke active sessions if activity is unauthorised.
+  - Reset the account password.
+  - Review recent mailbox and OAuth activity.
+false_positives:
+  - VPN usage
+  - Corporate proxy
+  - Cloud security service routing traffic through another country

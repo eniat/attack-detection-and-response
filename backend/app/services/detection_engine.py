@@ -1,11 +1,13 @@
 import json
 from collections import defaultdict
+from datetime import timedelta
 
 def run_all_detections(events):
 
     alerts = []
     alerts.extend(detect_password_spray(events))
     alerts.extend(detect_brute_force(events))
+    alerts.extend(detect_impossible_travel(events))
 
     return alerts
 
@@ -80,5 +82,49 @@ def detect_brute_force(events):
                 "mitre_technique_name": "Brute Force",
                 "evidence": json.dumps(evidence)
             })
+
+    return alerts
+
+def detect_impossible_travel(events):
+
+    alerts = []
+    successful_logins_by_user = defaultdict(list)
+
+    for event in events:
+        if event.event_type == "signin" and event.status =="success":
+            successful_logins_by_user[event.user_principal_name].append(event)
+
+    for user, user_events in successful_logins_by_user.items():
+        sorted_events = sorted(user_events, key=lambda event: event.timestamp)
+
+        for index in range(len(sorted_events) - 1):
+            first_event = sorted_events[index]
+            second_event = sorted_events[index + 1]
+
+            different_country = first_event.country != second_event.country
+            time_difference = second_event.timestamp - first_event.timestamp
+
+            if different_country and time_difference <= timedelta(hours=2):
+                evidence = {
+                    "user": user,
+                    "first_country":first_event.country,
+                    "second_country": second_event.country,
+                    "first_time": str(first_event.timestamp),
+                    "second_time": str(second_event.timestamp)
+                }
+
+                alerts.append({
+                    "rule_id": "DET-003",
+                    "rule_name": "Impossible Travel",
+                    "title": f"Impossible travel detected for {user}",
+                    "description": "The same user successfully authenticated from different countries within an unrealistic time window.",
+                    "severity":"High",
+                    "score": 75,
+                    "affected_user": user,
+                    "source_ip": second_event.ip_address,
+                    "mitre_technique_id": "T1078",
+                    "mitre_technique_name": "Valid Accounts",
+                    "evidence": json.dumps(evidence)
+                })
 
     return alerts
