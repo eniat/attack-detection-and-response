@@ -1,0 +1,21 @@
+id: DET-004
+name: MFA Fatigue
+description: Detects repeated MFA denials followed by successful MFA authentication.
+severity: High
+mitre:
+  tactic: Credential Access
+  technique_id: T1621
+  technique_name: Multi-Factor Authentication Request Generation
+logic:
+  min_mfa_denials: 5
+  requires_success_after_denials: true
+recommended_actions:
+  - Contact the user to confirm whether they approved the MFA request.
+  - Revoke active sessions.
+  - Reset the user's password.
+  - Require MFA re-registration.
+  - Review sign-in history for suspicious IPs.
+false_positives:
+  - User repeatedly failed MFA accidentally
+  - Mobile device notification issue
+  - Authentication app sync problem

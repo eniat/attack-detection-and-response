@@ -8,6 +8,7 @@ def run_all_detections(events):
     alerts.extend(detect_password_spray(events))
     alerts.extend(detect_brute_force(events))
     alerts.extend(detect_impossible_travel(events))
+    alerts.extend(detect_mfa_fatigue(events))
 
     return alerts
 
@@ -126,5 +127,42 @@ def detect_impossible_travel(events):
                     "mitre_technique_name": "Valid Accounts",
                     "evidence": json.dumps(evidence)
                 })
+
+    return alerts
+
+def detect_mfa_fatigue(events):
+
+    alerts = []
+    events_by_user = defaultdict(list)
+
+    for event in events:
+        if event.event_type == "signin":
+            events_by_user[event.user_principal_name].append(event)
+
+    for user, user_events in events_by_user.items():
+        denied_events = [event for event in user_events if event.mfa_result == "denied"]
+        success_events = [event for event in user_events if event.mfa_result == "success"]
+
+        if len(denied_events) >= 5 and success_events:
+            evidence = {
+                "user": user,
+                "mfa_denied_count": len(denied_events),
+                "successful_mfa_seen": True,
+                "success_ip": success_events[-1].ip_address
+            }
+
+            alerts.append({
+                "rule_id": "DET-004",
+                "rule_name": "MFA Fatigue",
+                "title": f"MFA fatigue pattern detected for {user}",
+                "description": "Multiple MFA denials were followed by a successful MFA authentication.",
+                "severity": "High",
+                "score": 85,
+                "affected_user": user,
+                "source_ip": success_events[-1].ip_address,
+                "mitre_technique_id": "T1621",
+                "mitre_technique_name":"Multi-Factor Authentication Request Generation",
+                "evidence": json.dumps(evidence)
+            })
 
     return alerts
