@@ -9,6 +9,8 @@ def run_all_detections(events):
     alerts.extend(detect_brute_force(events))
     alerts.extend(detect_impossible_travel(events))
     alerts.extend(detect_mfa_fatigue(events))
+    alerts.extend(detect_suspicious_oauth_consent(events))
+    alerts.extend(detect_suspicious_mailbox_rule(events))
 
     return alerts
 
@@ -163,6 +165,71 @@ def detect_mfa_fatigue(events):
                 "mitre_technique_id": "T1621",
                 "mitre_technique_name":"Multi-Factor Authentication Request Generation",
                 "evidence": json.dumps(evidence)
+            })
+
+    return alerts
+
+def detect_suspicious_oauth_consent(events):
+
+    alerts = []
+    suspicious_permissions = [
+        "Mail.Read",
+        "Files.Read.All",
+        "offline_access"]
+
+    for event in events:
+        if event.operation == "ConsentToApplication":
+            details = event.details or ""
+
+            if any(permission in details for permission in suspicious_permissions):
+                evidence = {
+                    "user": event.user_principal_name,
+                    "operation": event.operation,
+                    "details": details
+                }
+
+                alerts.append({
+                    "rule_id": "DET-005",
+                    "rule_name": "Suspicious OAuth Consent",
+                    "title": f"Suspicious OAuth consent by {event.user_principal_name}",
+                    "description": "User granted potentially risky OAuth permissions to an application.",
+                    "severity": "High",
+                    "score": 80,
+                    "affected_user": event.user_principal_name,
+                    "source_ip": event.ip_address,
+                    "mitre_technique_id": "T1566",
+                    "mitre_technique_name": "Phishing",
+                    "evidence":json.dumps(evidence)
+                })
+
+    return alerts
+
+def detect_suspicious_mailbox_rule(events):
+    alerts = []
+
+    for event in events:
+        details = event.details or ""
+
+        if event.operation == "New-InboxRule" and "forward_to" in details:
+            
+            evidence = {
+                "user": event.user_principal_name,
+                "operation": event.operation,
+                "details": details
+            }
+
+            alerts.append({
+                "rule_id": "DET-006",
+                "rule_name": "Suspicious Mailbox Forwarding Rule",
+                "title": f"Suspicious mailbox forwarding rule created by {event.user_principal_name}",
+                "description": "A mailbox rule was created to forward messages externally.",
+                "severity": "Critical",
+                "score": 90,
+                "affected_user": event.user_principal_name,
+                "source_ip": event.ip_address,
+                "mitre_technique_id": "T1114",
+                "mitre_technique_name": "Email Collection",
+                "evidence":json.dumps(evidence)
             })
 
     return alerts

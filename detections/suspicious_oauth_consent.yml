@@ -1,0 +1,23 @@
+id: DET-005
+name: Suspicious OAuth Consent
+description: Detects risky OAuth application consent events.
+severity: High
+mitre:
+  tactic: Initial Access
+  technique_id: T1566
+  technique_name: Phishing
+logic:
+  operation: ConsentToApplication
+  suspicious_permissions:
+    - Mail.Read
+    - Files.Read.All
+    - offline_access
+recommended_actions:
+  - Review the OAuth application publisher.
+  - Remove suspicious app consent grants.
+  - Revoke user sessions.
+  - Review mailbox and file access after consent.
+  - Reset the user password if compromise is suspected.
+false_positives:
+  - Legitimate business application
+  - Admin-approved app onboarding

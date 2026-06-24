@@ -1,0 +1,20 @@
+id: DET-006
+name: Suspicious Mailbox Forwarding Rule
+description: Detects inbox rules that forward emails externally.
+severity: Critical
+mitre:
+  tactic: Collection
+  technique_id: T1114
+  technique_name: Email Collection
+logic:
+  operation: New-InboxRule
+  suspicious_field: forward_to
+recommended_actions:
+  - Disable the suspicious inbox rule.
+  - Review mailbox access logs.
+  - Revoke active sessions.
+  - Reset user credentials.
+  - Search for similar rules across other mailboxes.
+false_positives:
+  - User-created legitimate forwarding rule
+  - Approved mailbox delegation workflow
