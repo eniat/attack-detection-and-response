@@ -1,0 +1,6 @@
+event_id,timestamp,user_principal_name,event_type,ip_address,country,city,user_agent,application,status,failure_reason,mfa_result,client_app,operation,target_resource,details
+evt-000,2026-06-01T09:00:00,user29@contoso.com,signin,203.0.113.88,United Kingdom,Manchester,Mozilla/5.0 Chrome,Microsoft 365,success,,success,browser,UserLoggedIn,Microsoft 365,{}
+evt-001,2026-06-01T09:02:00,user29@contoso.com,audit,203.0.113.88,United Kingdom,Manchester,ExchangePowerShell/1.0,Exchange Online,success,,not_required,powershell,ExchangePowerShellSessionStarted,Exchange Online,{}
+evt-002,2026-06-01T09:04:00,user29@contoso.com,audit,203.0.113.88,United Kingdom,Manchester,ExchangePowerShell/1.0,Exchange Online,success,,not_required,powershell,New-InboxRule,Exchange Online Mailbox,"{""delete_message"": false, ""forward_to"": ""external.receiver@example.net"", ""rule_name"": ""Auto forward invoices""}"
+evt-003,2026-06-01T09:06:00,user29@contoso.com,audit,203.0.113.88,United Kingdom,Manchester,ExchangePowerShell/1.0,Exchange Online,success,,not_required,powershell,Set-Mailbox,Exchange Online Mailbox,{}
+evt-004,2026-06-01T09:08:00,user29@contoso.com,access,203.0.113.88,United Kingdom,Manchester,Mozilla/5.0 Chrome,Outlook,success,,not_required,browser,MailboxAccessed,Exchange Online,{}

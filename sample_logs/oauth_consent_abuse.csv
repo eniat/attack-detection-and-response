@@ -1,0 +1,6 @@
+event_id,timestamp,user_principal_name,event_type,ip_address,country,city,user_agent,application,status,failure_reason,mfa_result,client_app,operation,target_resource,details
+evt-000,2026-06-01T09:00:00,user28@contoso.com,signin,192.0.2.88,Germany,Frankfurt,Mozilla/5.0 Chrome,Microsoft 365,success,,success,browser,UserLoggedIn,Microsoft 365,{}
+evt-001,2026-06-01T09:02:00,user28@contoso.com,audit,192.0.2.88,Germany,Frankfurt,Mozilla/5.0 Chrome,Azure Active Directory,success,,not_required,browser,ApplicationRegistered,Finance Report Exporter,{}
+evt-002,2026-06-01T09:03:00,user28@contoso.com,audit,192.0.2.88,Germany,Frankfurt,Mozilla/5.0 Chrome,Azure Active Directory,success,,not_required,browser,ServicePrincipalCreated,Finance Report Exporter,{}
+evt-003,2026-06-01T09:04:00,user28@contoso.com,audit,192.0.2.88,Germany,Frankfurt,Mozilla/5.0 Chrome,Azure Active Directory,success,,not_required,browser,ConsentToApplication,Finance Report Exporter,"{""app_id"": ""8f12b88a-4f0d-470c-9e60-2e9819b34f91"", ""app_name"": ""Finance Report Exporter"", ""permissions"": [""Mail.Read"", ""offline_access""]}"
+evt-004,2026-06-01T09:06:00,user28@contoso.com,audit,192.0.2.88,Germany,Frankfurt,Mozilla/5.0 Chrome,Azure Active Directory,success,,not_required,browser,TokenIssued,Finance Report Exporter,{}

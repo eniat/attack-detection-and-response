@@ -1,0 +1,17 @@
+event_id,timestamp,user_principal_name,event_type,ip_address,country,city,user_agent,application,status,failure_reason,mfa_result,client_app,operation,target_resource,details
+evt-000,2026-06-01T09:00:00,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-001,2026-06-01T09:00:15,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-002,2026-06-01T09:00:30,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-003,2026-06-01T09:00:45,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-004,2026-06-01T09:01:00,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-005,2026-06-01T09:01:15,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-006,2026-06-01T09:01:30,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-007,2026-06-01T09:01:45,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-008,2026-06-01T09:02:00,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-009,2026-06-01T09:02:15,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-010,2026-06-01T09:02:30,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-011,2026-06-01T09:02:45,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-012,2026-06-01T09:03:00,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-013,2026-06-01T09:03:15,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-014,2026-06-01T09:03:30,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,failure,Invalid password,not_required,browser,UserLoginFailed,Microsoft 365,{}
+evt-015,2026-06-01T09:05:00,user25@contoso.com,signin,203.0.113.45,United States,New York,Mozilla/5.0 Firefox,Microsoft 365,success,,success,browser,UserLoggedIn,Microsoft 365,{}

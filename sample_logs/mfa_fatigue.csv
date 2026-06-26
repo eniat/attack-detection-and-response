@@ -1,0 +1,9 @@
+event_id,timestamp,user_principal_name,event_type,ip_address,country,city,user_agent,application,status,failure_reason,mfa_result,client_app,operation,target_resource,details
+evt-000,2026-06-01T09:00:00,user27@contoso.com,signin,198.51.100.77,Netherlands,Amsterdam,Mozilla/5.0 Chrome,Microsoft 365,failure,MFA required,challenge_required,browser,UserLoginMfaRequired,Microsoft 365,{}
+evt-001,2026-06-01T09:00:30,user27@contoso.com,signin,198.51.100.77,Netherlands,Amsterdam,Mozilla/5.0 Chrome,Microsoft 365,failure,MFA denied by user,denied,browser,MfaDenied,Microsoft 365,{}
+evt-002,2026-06-01T09:01:00,user27@contoso.com,signin,198.51.100.77,Netherlands,Amsterdam,Mozilla/5.0 Chrome,Microsoft 365,failure,MFA denied by user,denied,browser,MfaDenied,Microsoft 365,{}
+evt-003,2026-06-01T09:01:30,user27@contoso.com,signin,198.51.100.77,Netherlands,Amsterdam,Mozilla/5.0 Chrome,Microsoft 365,failure,MFA denied by user,denied,browser,MfaDenied,Microsoft 365,{}
+evt-004,2026-06-01T09:02:00,user27@contoso.com,signin,198.51.100.77,Netherlands,Amsterdam,Mozilla/5.0 Chrome,Microsoft 365,failure,MFA denied by user,denied,browser,MfaDenied,Microsoft 365,{}
+evt-005,2026-06-01T09:02:30,user27@contoso.com,signin,198.51.100.77,Netherlands,Amsterdam,Mozilla/5.0 Chrome,Microsoft 365,failure,MFA denied by user,denied,browser,MfaDenied,Microsoft 365,{}
+evt-006,2026-06-01T09:03:00,user27@contoso.com,signin,198.51.100.77,Netherlands,Amsterdam,Mozilla/5.0 Chrome,Microsoft 365,success,,success,browser,MfaSatisfied,Microsoft 365,{}
+evt-007,2026-06-01T09:04:00,user27@contoso.com,access,198.51.100.77,Netherlands,Amsterdam,Mozilla/5.0 Chrome,Outlook,success,,not_required,browser,MailboxAccessed,Exchange Online,{}
