@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 
-from app.api import upload, events, alerts
+from app.api import upload, events, alerts, cases
 from app.database import Base, engine
-from app.models import Event, Alert
+from app.models import Event, Alert, Case
 
 Base.metadata.create_all(bind=engine)
 
@@ -15,7 +15,7 @@ app = FastAPI(
 app.include_router(upload.router, prefix="/upload",tags= ["Upload"])
 app.include_router(events.router, prefix="/events", tags=["Events"])
 app.include_router(alerts.router, prefix="/alerts", tags=["Alerts"])
-
+app.include_router(cases.router, prefix="/cases", tags=["Cases"])
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
