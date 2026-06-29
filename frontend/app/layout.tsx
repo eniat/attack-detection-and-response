@@ -21,6 +21,7 @@ export default function RootLayout({
               </a>
               <a href="/upload">Upload</a>
               <a href="/events">Events</a>
+              <a href="/actions">Actions</a>
               <a href="/alerts">Alerts</a>
               <a href="/cases">Cases</a>
             </div>
