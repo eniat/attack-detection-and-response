@@ -29,6 +29,7 @@ Identity attacks are a common route into organisations. This project demonstrate
 
 ```bash
 docker compose up --build
+```
 
 ## Features
 
