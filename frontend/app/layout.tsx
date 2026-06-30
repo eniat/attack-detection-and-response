@@ -19,11 +19,11 @@ export default function RootLayout({
               <a href="/" className="font-bold">
                 Identity Detection and Response
               </a>
-              <a href="/upload">Upload</a>
+              <a href="/cases">Cases</a>
+              <a href="/alerts">Alerts</a>
               <a href="/events">Events</a>
               <a href="/actions">Actions</a>
-              <a href="/alerts">Alerts</a>
-              <a href="/cases">Cases</a>
+              <a href="/upload">Upload</a>
             </div>
           </nav>
 
