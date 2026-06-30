@@ -1,10 +1,14 @@
 # Cloud Identity Attack Detection & Response Platform
 
-## Problem
-SOC analysts need to detect and investigate identity-based attacks from noisy authentication and audit logs.
+## Overview
 
-## What it does
-This platform ingests Entra ID / M365-style logs, detects suspicious identity activity, maps alerts to MITRE ATT&CK and produces analyst-ready investigation reports.
+Cloud Identity Detection & Response Platform is a full-stack cyber security project that detects identity-based attacks from Microsoft Entra ID / Microsoft 365-style logs.
+
+The platform ingests CSV logs, normalises authentication and audit events, runs detection logic, maps alerts to MITRE ATT&CK, groups alerts into analyst cases, and generates Markdown incident reports.
+
+## Why This Project Exists
+
+Identity attacks are a common route into organisations. This project demonstrates practical skills in log analysis, detection engineering, cloud identity security, SOC investigation, and incident response reporting.
 
 ## Key detections
 - Password spraying
@@ -14,18 +18,39 @@ This platform ingests Entra ID / M365-style logs, detects suspicious identity ac
 - Suspicious OAuth consent
 - Suspicious mailbox forwarding
 
-## Planned Tech Stack
+## Tech Stack
 - Backend: Python, FastAPI, SQLAlchemy, Pandas
 - Database: PostgreSQL
 - Frontend: Next.js, TypeScript, Tailwind CSS
 - DevOps: Docker Compose
 - Testing: Pytest
 
-## Screenshots
-Dashboard, case view, timeline, report export.
+## Running Locally
+
+```bash
+docker compose up --build
+
+## Features
+
+- CSV log upload
+- Event normalisation
+- Password spray detection
+- Brute force detection
+- Impossible travel detection
+- MFA fatigue detection
+- Suspicious OAuth consent detection
+- Suspicious mailbox forwarding detection
+- MITRE ATT&CK mapping
+- Alert severity scoring
+- Analyst case generation
+- Markdown report generation
+- Frontend dashboard
+- Docker Compose deployment
+- Pytest detection tests
 
 ## Example scenario
 A password spray attack results in one successful login, followed by suspicious mailbox forwarding. The platform links the events into one investigation case and recommends containment actions.
 
 ## Limitations
 Synthetic dataset. No live Microsoft tenant integration by default. Response actions are recommendations only.
+
