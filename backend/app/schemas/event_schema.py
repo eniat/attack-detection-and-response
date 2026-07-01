@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 class EventResponse(BaseModel):
+    upload_batch_uuid: str | None
     id: int
     event_id: str | None
     timestamp: datetime | None

@@ -2,11 +2,11 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
-class ReportResponse(BaseModel):
-    upload_batch_uuid: str | None
+class UploadBatchResponse(BaseModel):
     id: int
-    case_id: int
-    report_markdown: str
+    upload_batch_uuid: str
+    original_filename: str | None
+    event_count: int | None
     created_at: datetime | None
 
     class Config:

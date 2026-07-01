@@ -3,6 +3,7 @@ from datetime import datetime
 from pydantic import BaseModel
 
 class AlertResponse(BaseModel):
+    upload_batch_uuid: str | None
     id: int
     rule_id: str | None
     rule_name: str | None

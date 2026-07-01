@@ -2,8 +2,11 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+class CaseStatusUpdate(BaseModel):
+    status: str
+
 class CaseResponse(BaseModel):
-    
+    upload_batch_uuid: str | None
     id: int
     title: str | None
     status: str | None
