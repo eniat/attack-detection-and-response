@@ -6,6 +6,7 @@ from app.database import Base
 class Event(Base):
     __tablename__ = "events"
 
+    upload_batch_uuid = Column(String, index= True)
     id = Column(Integer, primary_key=True, index=True)
 
     event_id = Column(String, index=True)

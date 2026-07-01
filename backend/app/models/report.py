@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Integer, Text
+from sqlalchemy import Column, DateTime, Integer, Text, String
 from sqlalchemy.sql import func
 
 from app.database import Base
@@ -7,6 +7,7 @@ class Report(Base):
 
     __tablename__ = "reports"
 
+    upload_batch_uuid = Column(String, index= True)
     id = Column(Integer, primary_key= True, index= True)
 
     case_id = Column(Integer, index= True)

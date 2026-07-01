@@ -7,6 +7,7 @@ class Alert(Base):
 
     __tablename__ ="alerts"
 
+    upload_batch_uuid = Column(String, index= True)
     id = Column(Integer, primary_key= True, index= True)
 
     rule_id = Column(String, index=True)

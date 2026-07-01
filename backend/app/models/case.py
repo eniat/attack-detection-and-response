@@ -7,6 +7,7 @@ class Case(Base):
 
     __tablename__ = "cases"
 
+    upload_batch_uuid = Column(String, index= True)
     id = Column(Integer, primary_key= True, index= True)
 
     title = Column(String)
