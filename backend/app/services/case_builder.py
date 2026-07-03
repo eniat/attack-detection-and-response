@@ -2,7 +2,7 @@ import json
 
 from collections import defaultdict
 
-def build_cases_from_alerts(alerts):
+def build_cases_from_alerts(alerts, upload_batch_uuid: str):
 
     grouped_alerts = defaultdict(list)
 
@@ -19,11 +19,11 @@ def build_cases_from_alerts(alerts):
         related_ids = [alert.id for alert in related_alerts]
         alert_names = [alert.rule_name for alert in related_alerts]
 
-        title = f"Identity Security Case - {key}"
+        title = f"Identity Investigation  - {key}"
 
         summary =(
-            f"{len(related_alerts)} related alert(s) were identified for {key}: "
-            f"{', '.join(alert_names)}."
+            f"{len(related_alerts)} related alert(s) were identified in upload: "
+            f"{upload_batch_uuid}: {', '.join(alert_names)}."
         )
 
         recommendations = [
@@ -35,6 +35,7 @@ def build_cases_from_alerts(alerts):
         ]
 
         cases.append({
+            "upload_batch_uuid": upload_batch_uuid,
             "title": title,
             "status": "open",
             "severity": severity,
