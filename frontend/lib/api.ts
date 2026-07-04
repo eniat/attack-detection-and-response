@@ -1,64 +1,99 @@
+import { Alert, Case, CaseComment, Event, UploadBatch } from "./types";
+
 const API_BASE_URL =
   process.env.API_BASE_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
   "http://localhost:8000";
 
-export async function getEvents() {
-  const response = await fetch(`${API_BASE_URL}/events/`, {
+async function fetchJson<T>(path: string, options?: RequestInit): Promise<T> {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
     cache: "no-store",
+    ...options
   });
 
   if (!response.ok) {
-    throw new Error("Failed to fetch events");
+    throw new Error(`API request failed: ${path}`);
   }
 
   return response.json();
 }
 
-export async function getAlerts() {
-  const response = await fetch(`${API_BASE_URL}/alerts/`, {
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch alerts");
-  }
-
-  return response.json();
+export async function getEvents(): Promise<Event[]> {
+  return fetchJson<Event[]>("/events/");
 }
 
-export async function getCases() {
-  const response = await fetch(`${API_BASE_URL}/cases/`, {
-    cache: "no-store",
-  });
+export async function getAlerts(): Promise<Alert[]> {
+  return fetchJson<Alert[]>("/alerts/");
+}
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch cases");
-  }
+export async function getCases(): Promise<Case[]> {
+  return fetchJson<Case[]>("/cases/");
+}
 
-  return response.json();
+export async function getBatches(): Promise<UploadBatch[]> {
+  return fetchJson<UploadBatch[]>("/batches/");
+}
+
+export async function getBatchEvents(uploadBatchUuid: string): Promise<Event[]> {
+  return fetchJson<Event[]>(`/batches/${uploadBatchUuid}/events`);
+}
+
+export async function getAlertsForBatch(uploadBatchUuid: string): Promise<Alert[]> {
+  return fetchJson<Alert[]>(`/alerts/batch/${uploadBatchUuid}`);
+}
+
+export async function getCasesForBatch(uploadBatchUuid: string): Promise<Case[]> {
+  return fetchJson<Case[]>(`/cases/by-batch/${uploadBatchUuid}`);
+}
+
+export async function getCase(caseId: number): Promise<Case> {
+  return fetchJson<Case>(`/cases/${caseId}`);
+}
+
+export async function getCaseComments(caseId: number): Promise<CaseComment[]> {
+  return fetchJson<CaseComment[]>(`/cases/${caseId}/comments`);
 }
 
 export async function runDetections() {
-  const response = await fetch(`${API_BASE_URL}/alerts/run`, {
-    method: "POST",
+  return fetchJson("/alerts/run", {
+    method: "POST"
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to run detections");
-  }
-
-  return response.json();
 }
 
 export async function buildCases() {
-  const response = await fetch(`${API_BASE_URL}/cases/build`, {
-    method: "POST",
+  return fetchJson("/cases/build", {
+    method: "POST"
   });
+}
 
-  if (!response.ok) {
-    throw new Error("Failed to build cases");
-  }
+export async function runDetectionsForBatch(uploadBatchUuid: string) {
+  return fetchJson(`/alerts/run/${uploadBatchUuid}`, {
+    method: "POST"
+  });
+}
 
-  return response.json();
+export async function buildCasesForBatch(uploadBatchUuid: string) {
+  return fetchJson(`/cases/build/${uploadBatchUuid}`, {
+    method: "POST"
+  });
+}
+
+export async function updateCaseStatus(caseId: number, status: string): Promise<Case> {
+  return fetchJson<Case>(`/cases/${caseId}/status`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ status })
+  });
+}
+
+export async function addCaseComment(caseId: number, comment: string): Promise<CaseComment> {
+  return fetchJson<CaseComment>(`/cases/${caseId}/comments`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ comment })
+  });
 }
