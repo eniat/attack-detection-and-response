@@ -11,6 +11,14 @@ from app.models.case_comment import CaseComment
 
 router = APIRouter()
 
+allowed_statuses = {
+    "open",
+    "investigating",
+    "contained",
+    "false_positive",
+    "closed"
+}
+
 class CaseStatusUpdate(BaseModel):
     status: str
 
@@ -81,6 +89,12 @@ def update_case_status(case_id: int, status_update: CaseStatusUpdate,db:Session 
 
     if not case:
         raise HTTPException(status_code= 404, detail= "Case not found")
+    
+    if status_update.status not in allowed_statuses:
+        raise HTTPException(
+            status_code= 400,
+            detail=f"Invalid status. Allowed statuses: {sorted(allowed_statuses)}"
+        )
 
     case.status = status_update.status
     db.commit()
