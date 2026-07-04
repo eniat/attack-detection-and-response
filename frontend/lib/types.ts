@@ -2,6 +2,7 @@ export type UploadBatch = {
   id: number;
   upload_batch_uuid: string;
   filename: string;
+  event_count: number;
   created_at: string;
 };
 

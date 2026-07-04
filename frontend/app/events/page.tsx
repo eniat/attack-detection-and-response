@@ -1,48 +1,60 @@
-import { getEvents } from "@/lib/api";
-import { Event } from "@/lib/types";
+import Link from "next/link";
+
+import { getBatches } from "@/lib/api";
+import { UploadBatch } from "@/lib/types";
 
 export default async function EventsPage() {
-  let events: Event[] = [];
+  let batches: UploadBatch[] = [];
 
   try {
-    events = await getEvents();
+    batches = await getBatches();
   } catch {
-    events = [];
+    batches = [];
   }
 
   return (
     <div>
       <h1 className="mb-4 text-3xl font-bold">Events</h1>
 
-      <div className="overflow-x-auto rounded-lg border border-slate-800 bg-slate-900">
-        <table className="w-full text-left text-sm">
-          <thead className="border-b border-slate-800 text-slate-400">
-            <tr>
-              <th className="p-3">Timestamp</th>
-              <th className="p-3">User</th>
-              <th className="p-3">Type</th>
-              <th className="p-3">IP</th>
-              <th className="p-3">Country</th>
-              <th className="p-3">Status</th>
-              <th className="p-3">Operation</th>
-            </tr>
-          </thead>
+      <p className="mb-6 text-slate-400">
+        Uploaded CSV batches are shown below. Open a batch to view its events.
+      </p>
 
-          <tbody>
-            {events.map((event) => (
-              <tr key={event.id} className="border-b border-slate-800">
-                <td className="p-3">{event.timestamp}</td>
-                <td className="p-3">{event.user_principal_name}</td>
-                <td className="p-3">{event.event_type}</td>
-                <td className="p-3">{event.ip_address}</td>
-                <td className="p-3">{event.country}</td>
-                <td className="p-3">{event.status}</td>
-                <td className="p-3">{event.operation}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {batches.length === 0 ? (
+        <div className="rounded-lg border border-slate-800 bg-slate-900 p-6 text-slate-400">
+          No uploaded event batches found.
+        </div>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {batches.map((batch) => (
+            <Link
+              key={batch.upload_batch_uuid}
+              href={`/events/${batch.upload_batch_uuid}`}
+              className="block rounded-lg border border-slate-800 bg-slate-900 p-5 hover:border-blue-500"
+            >
+              <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Event Batch
+              </div>
+
+              <h2 className="mb-2 text-lg font-semibold text-slate-100">
+                {batch.filename}
+              </h2>
+
+              <p className="mb-2 text-sm text-slate-400">
+                Events: {batch.event_count}
+              </p>
+
+              <p className="mb-2 break-all text-xs text-slate-500">
+                Batch UUID: {batch.upload_batch_uuid}
+              </p>
+
+              <p className="text-xs text-slate-500">
+                Uploaded: {batch.created_at}
+              </p>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
