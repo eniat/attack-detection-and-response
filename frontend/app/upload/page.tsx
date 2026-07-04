@@ -7,6 +7,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 export default function UploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [message, setMessage] = useState("");
+  const [batchUuid, setBatchUuid] = useState("");
 
   async function handleUpload() {
     if (!file) {
@@ -30,6 +31,7 @@ export default function UploadPage() {
     }
 
     setMessage(`Uploaded ${result.events_imported} events.`);
+    setBatchUuid(result.upload_batch_uuid);
   }
 
   return (
@@ -37,12 +39,32 @@ export default function UploadPage() {
       <h1 className="mb-4 text-3xl font-bold">Upload Logs</h1>
 
       <div className="max-w-xl rounded-lg border border-slate-800 bg-slate-900 p-6">
-        <input
-          type="file"
-          accept=".csv"
-          onChange={(event) => setFile(event.target.files?.[0] || null)}
-          className="mb-4 block w-full text-sm"
-        />
+        <div className="mb-4">
+          <input
+            id="csv-upload"
+            type="file"
+            accept=".csv"
+            className="hidden"
+            onChange={(event) => {
+              setFile(event.target.files?.[0] || null);
+              setBatchUuid("");
+              setMessage("");
+            }}
+          />
+
+          <label
+            htmlFor="csv-upload"
+            className="inline-block cursor-pointer rounded bg-slate-700 px-4 py-2 font-semibold hover:bg-slate-600"
+          >
+            Choose CSV File
+          </label>
+
+          {file && (
+            <p className="mt-2 text-sm text-slate-400">
+              Selected: {file.name}
+            </p>
+          )}
+        </div>
 
         <button
           onClick={handleUpload}
@@ -52,6 +74,15 @@ export default function UploadPage() {
         </button>
 
         {message && <p className="mt-4 text-slate-300">{message}</p>}
+
+        {batchUuid && (
+          <a
+            href={`/events/${batchUuid}`}
+            className="mt-4 inline-block text-blue-400 underline"
+          >
+            Open uploaded event batch
+          </a>
+        )}
       </div>
     </div>
   );
