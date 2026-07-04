@@ -8,6 +8,7 @@ def generate_case_report(case):
 ## Case Details
 
 - Case ID: {case.id}
+- Upload Batch UUID: {case.upload_batch_uuid}
 - Severity: {case.severity}
 - Score: {case.score}
 - Affected User / Entity: {case.affected_user}

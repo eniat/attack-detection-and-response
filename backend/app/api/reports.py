@@ -19,6 +19,7 @@ def create_report(case_id: int,db: Session = Depends(get_db)):
 
     report = Report(
         case_id=case.id,
+        upload_batch_uuid= case.upload_batch_uuid,
         report_markdown=markdown
     )
 
