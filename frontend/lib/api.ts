@@ -66,16 +66,24 @@ export async function buildCases() {
   });
 }
 
-export async function runDetectionsForBatch(uploadBatchUuid: string) {
-  return fetchJson(`/alerts/run/${uploadBatchUuid}`, {
-    method: "POST"
-  });
+export async function runDetectionsForBatch(uploadBatchUuid: string): 
+Promise<{ message: string; alerts_created: number }> {
+  return fetchJson<{ message: string; alerts_created: number }>(
+    `/alerts/run/${uploadBatchUuid}`,
+    {
+      method: "POST"
+    }
+  );
 }
 
-export async function buildCasesForBatch(uploadBatchUuid: string) {
-  return fetchJson(`/cases/build/${uploadBatchUuid}`, {
-    method: "POST"
-  });
+export async function buildCasesForBatch(uploadBatchUuid: string): 
+Promise<{ message: string; cases_created: number }> {
+  return fetchJson<{ message: string; cases_created: number }>(
+    `/cases/build/${uploadBatchUuid}`,
+    {
+      method: "POST"
+    }
+  );
 }
 
 export async function updateCaseStatus(caseId: number, status: string): Promise<Case> {
