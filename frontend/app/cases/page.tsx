@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import SeverityBadge from "@/components/SeverityBadge";
 import { getCases } from "@/lib/api";
 import { Case } from "@/lib/types";
@@ -28,6 +30,7 @@ export default async function CasesPage() {
               <th className="p-3">Affected User / Entity</th>
               <th className="p-3">Status</th>
               <th className="p-3">Score</th>
+              <th className="p-3">Batch</th>
             </tr>
           </thead>
 
@@ -37,10 +40,25 @@ export default async function CasesPage() {
                 <td className="p-3">
                   <SeverityBadge severity={caseItem.severity} />
                 </td>
-                <td className="p-3">{caseItem.title}</td>
+                <td className="p-3">
+                  <Link
+                    href={`/cases/${caseItem.id}`}
+                    className="text-blue-400 underline hover:text-blue-300"
+                  >
+                    {caseItem.title}
+                  </Link>
+                </td>
                 <td className="p-3">{caseItem.affected_user}</td>
                 <td className="p-3">{caseItem.status}</td>
                 <td className="p-3">{caseItem.score}</td>
+                <td className="p-3">
+                  <Link
+                    href={`/events/${caseItem.upload_batch_uuid}`}
+                    className="break-all text-blue-400 underline hover:text-blue-300"
+                  >
+                    {caseItem.upload_batch_uuid}
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>
