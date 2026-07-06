@@ -6,7 +6,8 @@ import { useState } from "react";
 import SeverityBadge from "@/components/SeverityBadge";
 import {
   addCaseComment,
-  updateCaseStatus
+  updateCaseStatus,
+  generateReport
 } from "@/lib/api";
 import { Case, CaseComment } from "@/lib/types";
 
@@ -30,6 +31,7 @@ export default function CaseDetailClient({
   const [newComment, setNewComment] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [reportMarkdown, setReportMarkdown] = useState("");
 
   async function handleStatusChange(event: React.ChangeEvent<HTMLSelectElement>) {
     const updatedStatus = event.target.value;
@@ -66,6 +68,21 @@ export default function CaseDetailClient({
       setMessage("Comment added.");
     } catch {
       setMessage("Failed to add comment.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleGenerateReport() {
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const report = await generateReport(caseItem.id);
+      setReportMarkdown(report.report_markdown);
+      setMessage("Report generated.");
+    } catch {
+      setMessage("Failed to generate report.");
     } finally {
       setLoading(false);
     }
@@ -133,14 +150,32 @@ export default function CaseDetailClient({
       <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
         <h2 className="mb-3 text-2xl font-bold">Recommendations</h2>
         <ul className="list-disc space-y-2 pl-6 text-slate-300">
-            {caseItem.recommendations
+          {caseItem.recommendations
             .split("\n")
             .map((recommendation) => recommendation.replace("- ", "").trim())
             .filter(Boolean)
             .map((recommendation) => (
-            <li key={recommendation}>{recommendation}</li>
+              <li key={recommendation}>{recommendation}</li>
             ))}
         </ul>
+      </div>
+
+      <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
+        <h2 className="mb-4 text-2xl font-bold">Case Report</h2>
+
+        <button
+          onClick={handleGenerateReport}
+          disabled={loading}
+          className="rounded bg-emerald-600 px-4 py-2 font-semibold hover:bg-emerald-500 disabled:opacity-50"
+        >
+          Generate Report
+        </button>
+
+        {reportMarkdown && (
+          <pre className="mt-4 max-h-[600px] overflow-auto whitespace-pre-wrap rounded border border-slate-800 bg-slate-950 p-4 text-sm text-slate-300">
+            {reportMarkdown}
+          </pre>
+        )}
       </div>
 
       <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">

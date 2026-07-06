@@ -65,3 +65,11 @@ export type Event = {
   target_resource: string;
   details: string;
 };
+
+export type Report = {
+  id: number;
+  case_id: number;
+  upload_batch_uuid: string;
+  report_markdown: string;
+  created_at: string;
+};

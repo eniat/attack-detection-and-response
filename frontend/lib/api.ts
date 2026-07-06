@@ -1,4 +1,4 @@
-import { Alert, Case, CaseComment, Event, UploadBatch } from "./types";
+import { Alert, Case, CaseComment, Event, UploadBatch, Report } from "./types";
 
 const API_BASE_URL =
   process.env.API_BASE_URL ||
@@ -103,5 +103,11 @@ export async function addCaseComment(caseId: number, comment: string): Promise<C
       "Content-Type": "application/json"
     },
     body: JSON.stringify({ comment })
+  });
+}
+
+export async function generateReport(caseId: number): Promise<Report> {
+  return fetchJson<Report>(`/reports/${caseId}`, {
+    method: "POST"
   });
 }
