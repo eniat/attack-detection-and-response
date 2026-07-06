@@ -32,13 +32,17 @@ export default async function EventsPage() {
               href={`/events/${batch.upload_batch_uuid}`}
               className="block rounded-lg border border-slate-800 bg-slate-900 p-5 hover:border-blue-500"
             >
-              <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Uploaded CSV
+              <div className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Event Batch
               </div>
 
               <h2 className="mb-3 break-words text-xl font-bold text-slate-100">
-                {batch.filename}
+                {batch.original_filename}
               </h2>
+
+              <p className="mb-3 break-all rounded bg-slate-800 px-3 py-2 text-xs text-slate-400">
+                Batch UUID: {batch.upload_batch_uuid}
+              </p>
 
               <div className="space-y-2 text-sm text-slate-400">
                 <p>
@@ -47,10 +51,6 @@ export default async function EventsPage() {
 
                 <p>
                   Uploaded: {batch.created_at}
-                </p>
-
-                <p className="break-all text-xs text-slate-500">
-                  Batch UUID: {batch.upload_batch_uuid}
                 </p>
               </div>
             </Link>

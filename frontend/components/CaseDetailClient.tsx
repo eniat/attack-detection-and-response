@@ -132,9 +132,15 @@ export default function CaseDetailClient({
 
       <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
         <h2 className="mb-3 text-2xl font-bold">Recommendations</h2>
-        <p className="whitespace-pre-line text-slate-300">
-          {caseItem.recommendations}
-        </p>
+        <ul className="list-disc space-y-2 pl-6 text-slate-300">
+            {caseItem.recommendations
+            .split("\n")
+            .map((recommendation) => recommendation.replace("- ", "").trim())
+            .filter(Boolean)
+            .map((recommendation) => (
+            <li key={recommendation}>{recommendation}</li>
+            ))}
+        </ul>
       </div>
 
       <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
