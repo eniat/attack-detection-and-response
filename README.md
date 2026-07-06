@@ -10,6 +10,33 @@ The platform ingests CSV logs, normalises authentication and audit events, runs 
 
 Identity attacks are a common route into organisations. This project demonstrates practical skills in log analysis, detection engineering, cloud identity security, SOC investigation, and incident response reporting.
 
+## Investigation Workflow
+
+1. Upload a CSV log file.
+2. The system creates a unique upload batch UUID.
+3. Events are stored against that upload batch.
+4. The Events page shows each upload as a separate investigation folder.
+5. Detections can be run against a specific upload batch.
+6. Alerts are generated only for that upload batch.
+7. Cases can be built from alerts belonging to that upload batch.
+8. Analysts can open cases, update status, and add investigation comments.
+9. Reports link back to the original upload batch.
+
+## Upload Batch Linking
+
+Each uploaded CSV creates an `upload_batch_uuid`.
+
+This UUID links:
+
+- uploaded file metadata
+- parsed events
+- generated alerts
+- analyst cases
+- case comments
+- reports
+
+This keeps separate investigations isolated from each other and avoids mixing events from multiple uploads.
+
 ## Key detections
 - Password spraying
 - Brute force

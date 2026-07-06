@@ -40,7 +40,7 @@ def get_cases_by_batch(upload_batch_uuid: str,db:Session = Depends(get_db)):
 @router.post("/build")
 def build_cases(db: Session = Depends(get_db)):
     alerts = db.query(Alert).all()
-    case_results = build_cases_from_alerts(alerts)
+    case_results = build_cases_from_alerts(alerts, None)
 
     for case_data in case_results:
         db.add(Case(**case_data))
@@ -53,13 +53,27 @@ def build_cases(db: Session = Depends(get_db)):
 
 @router.post("/build/{upload_batch_uuid}")
 def build_cases_by_batch(upload_batch_uuid: str,db:Session = Depends(get_db)):
+
+    existing_active_cases = ( 
+        db.query(Case)
+        .filter(Case.upload_batch_uuid == upload_batch_uuid)
+        .filter(Case.status != "closed").count()
+    )
+
+    if existing_active_cases > 0:
+        return {
+        "message": "Active cases already exist for this upload batch",
+        "upload_batch_uuid": upload_batch_uuid,
+        "cases_created": 0
+        }
+    
     alerts = (
         db.query(Alert)
         .filter(Alert.upload_batch_uuid ==upload_batch_uuid)
         .all()
     )
 
-    case_results = build_cases_from_alerts(alerts)
+    case_results = build_cases_from_alerts(alerts, upload_batch_uuid)
 
     for case_data in case_results:
         case_data["upload_batch_uuid"] = upload_batch_uuid

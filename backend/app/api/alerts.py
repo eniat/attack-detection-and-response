@@ -33,6 +33,19 @@ def run_detections(upload_batch_uuid: str, db: Session = Depends(get_db)):
 
     if not batch:
         raise HTTPException(status_code= 404, detail= "Upload batch not found")
+    
+    existing_alerts = (
+        db.query(Alert)
+        .filter(Alert.upload_batch_uuid == upload_batch_uuid)
+        .count()
+    )
+
+    if existing_alerts > 0:
+        return {
+            "message": "Alerts already created for this upload batch",
+            "upload_batch_uuid": upload_batch_uuid,
+            "alerts_created": 0
+        }
 
     events = (
         db.query(Event)

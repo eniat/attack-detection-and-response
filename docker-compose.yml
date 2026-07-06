@@ -16,7 +16,7 @@ services:
       context: ./backend
     container_name: identity_detection_backend
     environment:
-      DATABASE_URL: postgresql://postgres:change-me@db:5432/identity_detection
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:change-me@postgres:5432/identity_detection}
     ports:
       - "8000:8000"
     depends_on:
