@@ -16,12 +16,6 @@ export default function HomePage() {
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link
-            href="/upload"
-            className="rounded bg-blue-600 px-4 py-2 font-semibold hover:bg-blue-500"
-          >
-            Upload CSV Logs
-          </Link>
 
           <Link
             href="/events"
