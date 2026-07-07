@@ -17,7 +17,7 @@ export default async function AlertsPage() {
       <h1 className="mb-4 text-3xl font-bold">Alerts</h1>
 
       <p className="mb-4 text-slate-400">
-        Run detections from the FastAPI docs using POST /alerts/run.
+        Alerts are generated from events and can be investigated. Click on an alert to view its details. 
       </p>
 
       <div className="overflow-x-auto rounded-lg border border-slate-800 bg-slate-900">

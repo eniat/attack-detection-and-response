@@ -12,15 +12,15 @@ Identity attacks are a common route into organisations. This project demonstrate
 
 ## Investigation Workflow
 
-1. Upload a CSV log file.
-2. The system creates a unique upload batch UUID.
-3. Events are stored against that upload batch.
-4. The Events page shows each upload as a separate investigation folder.
-5. Detections can be run against a specific upload batch.
-6. Alerts are generated only for that upload batch.
-7. Cases can be built from alerts belonging to that upload batch.
-8. Analysts can open cases, update status, and add investigation comments.
-9. Reports link back to the original upload batch.
+1. Open the Events page.
+2. Use the upload controls beside the Events heading to upload a CSV log file.
+3. The system creates a unique upload batch UUID.
+4. The uploaded CSV appears as an event batch card.
+5. Open the batch to view parsed events.
+6. Run detections against that batch.
+7. Build cases from the generated alerts.
+8. Open a case to review the summary, recommendations, status, comments, and report.
+9. Add analyst comments, update case status, and generate a Markdown incident report.
 
 ## Upload Batch Linking
 

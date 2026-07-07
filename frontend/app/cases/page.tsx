@@ -18,7 +18,7 @@ export default async function CasesPage() {
       <h1 className="mb-4 text-3xl font-bold">Cases</h1>
 
       <p className="mb-4 text-slate-400">
-        Build cases from the FastAPI docs using POST /cases/build.
+        Built-in detections generate cases that can be investigated. Click on a case to view its details.
       </p>
 
       <div className="overflow-x-auto rounded-lg border border-slate-800 bg-slate-900">

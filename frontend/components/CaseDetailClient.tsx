@@ -99,55 +99,90 @@ export default function CaseDetailClient({
         </Link>
       </div>
 
-      <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
-        <div className="mb-4 flex flex-wrap items-center gap-3">
-          <SeverityBadge severity={caseItem.severity} />
+      <div className=" rounded-lg border border-slate-800 bg-slate-900 p-6">
+        <div className="flex flex-col gap-4 xl:flex-row xl:justify-between">
 
-          <span className="rounded bg-slate-800 px-3 py-1 text-sm text-slate-300">
-            Status: {status}
-          </span>
-        </div>
+          <div className="min-w-0">
+            <h1 className="text-3xl font-bold">
+                {caseItem.title}
+            </h1>
 
-        <h1 className="mb-4 text-3xl font-bold">{caseItem.title}</h1>
+            <p className="mt-4 text-sm text-slate-400">
+              Batch ID:
+            </p>
 
-        <div className="grid gap-4 text-sm text-slate-300 md:grid-cols-2">
-          <p>
-            <span className="font-semibold text-slate-100">Batch ID:</span>{" "}
             <Link
               href={`/events/${caseItem.upload_batch_uuid}`}
-              className="break-all text-blue-400 underline hover:text-blue-300"
+              className="break-all text-blue-400 underline"
             >
               {caseItem.upload_batch_uuid}
             </Link>
-          </p>
 
-          <p>
-            <span className="font-semibold text-slate-100">Score:</span>{" "}
-            {caseItem.score}
-          </p>
+            <p className="mt-4 text-slate-300">
+              <span className="font-semibold">
+                Affected entity:
+              </span>{" "}
+              {caseItem.affected_user}
+            </p>
+          </div>
 
-          <p>
-            <span className="font-semibold text-slate-100">
-              Affected entity:
-            </span>{" "}
-            {caseItem.affected_user}
-          </p>
+          <div className="grid gap-4 sm:grid-cols-2 xl:w-[480px]">
 
-          <p>
-            <span className="font-semibold text-slate-100">
-              Related alerts:
-            </span>{" "}
-            {caseItem.related_alert_ids}
-          </p>
+            <div className="rounded bg-slate-800 p-4">
+              <p className="text-xs uppercase text-slate-500">
+                Severity
+              </p>
+
+              <div className="mt-2">
+                <SeverityBadge severity={caseItem.severity}/>
+              </div>
+            </div>
+
+            <div className="rounded bg-slate-800 p-4">
+              <p className="text-xs uppercase text-slate-500">
+                Score
+              </p>
+
+              <p className="mt-2 text-2xl font-bold">
+                {caseItem.score}
+              </p>
+            </div>
+
+              <div className="rounded bg-slate-800 p-4">
+                <p className="text-xs uppercase text-slate-500">
+                  Status
+                </p>
+
+                <p className="mt-2">
+                    {status}
+                </p>
+              </div>
+
+              <div className="rounded bg-slate-800 p-4">
+                <p className="text-xs uppercase text-slate-500">
+                    Related Event
+                </p>
+
+                <Link
+                  href={`/events/${caseItem.upload_batch_uuid}`}
+                  className="mt-2 block text-blue-400 underline hover:text-blue-300"
+                >
+                  View source event
+                </Link>
+              </div>
+          </div>
+
         </div>
-      </div>
+    </div>
 
-      <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
-        <h2 className="mb-3 text-2xl font-bold">Summary</h2>
-        <p className="text-slate-300">{caseItem.summary}</p>
-      </div>
+    <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1.5fr)_minmax(320px,0.8fr)]">
+      <div className="space-y-6">
+        <div className="rounded-lg border border-slate-800 bg-slate-900 p-6">
+            <h2 className="mb-3 text-2xl font-bold">Summary</h2>
+            <p className="text-slate-300">{caseItem.summary}</p>
+        </div>
 
-      <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
+      <div className="rounded-lg border border-slate-800 bg-slate-900 p-6">
         <h2 className="mb-3 text-2xl font-bold">Recommendations</h2>
         <ul className="list-disc space-y-2 pl-6 text-slate-300">
           {caseItem.recommendations
@@ -160,50 +195,13 @@ export default function CaseDetailClient({
         </ul>
       </div>
 
-      <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
-        <h2 className="mb-4 text-2xl font-bold">Case Report</h2>
-
-        <button
-          onClick={handleGenerateReport}
-          disabled={loading}
-          className="rounded bg-emerald-600 px-4 py-2 font-semibold hover:bg-emerald-500 disabled:opacity-50"
-        >
-          Generate Report
-        </button>
-
-        {reportMarkdown && (
-          <pre className="mt-4 max-h-[600px] overflow-auto whitespace-pre-wrap rounded border border-slate-800 bg-slate-950 p-4 text-sm text-slate-300">
-            {reportMarkdown}
-          </pre>
-        )}
-      </div>
-
-      <div className="mb-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
-        <h2 className="mb-4 text-2xl font-bold">Update Status</h2>
-
-        <select
-          value={status}
-          onChange={handleStatusChange}
-          disabled={loading}
-          className="rounded border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
-        >
-          {statusOptions.map((statusOption) => (
-            <option key={statusOption} value={statusOption}>
-              {statusOption}
-            </option>
-          ))}
-        </select>
-
-        {message && <p className="mt-4 text-sm text-slate-300">{message}</p>}
-      </div>
-
       <div className="rounded-lg border border-slate-800 bg-slate-900 p-6">
         <h2 className="mb-4 text-2xl font-bold">Analyst Comments</h2>
 
         {comments.length === 0 ? (
           <p className="mb-4 text-slate-400">No comments added yet.</p>
         ) : (
-          <div className="mb-6 space-y-3">
+          <div className="space-y-3">
             {comments.map((comment) => (
               <div
                 key={comment.id}
@@ -236,6 +234,87 @@ export default function CaseDetailClient({
           </button>
         </form>
       </div>
+      </div>
+
+      <div className="space-y-6 xl:border-l xl:border-slate-800 xl:pl-6">
+
+        <div className="rounded-lg border border-slate-800 bg-slate-900 p-6">
+          <h2 className="mb-4 text-2xl font-bold">Update Status</h2>
+
+          <select
+            value={status}
+            onChange={handleStatusChange}
+            disabled={loading}
+            className="rounded border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100"
+          >
+            {statusOptions.map((statusOption) => (
+              <option key={statusOption} value={statusOption}>
+                {statusOption}
+              </option>
+            ))}
+          </select>
+
+          {message && <p className="mt-4 text-sm text-slate-300">{message}</p>}
+        </div>
+
+
+        <div className="rounded-lg border border-slate-800 bg-slate-900 p-6">
+          <h2 className="mb-4 text-2xl font-bold">Case Report</h2>
+
+          <button
+            onClick={handleGenerateReport}
+            disabled={loading}
+            className="rounded bg-emerald-600 px-4 py-2 font-semibold hover:bg-emerald-500 disabled:opacity-50"
+          >
+            Generate Report
+          </button>
+
+          {reportMarkdown && (
+            <pre className="mt-4 max-h-[400px] overflow-auto whitespace-pre-wrap rounded border border-slate-800 bg-slate-950 p-4 text-sm text-slate-300">
+              {reportMarkdown}
+            </pre>
+          )}
+        </div>
+
+
+        <div className="rounded-lg border border-slate-800 bg-slate-900 p-6">
+
+          <h2 className="mb-4 text-2xl font-bold">
+            Case Information
+          </h2>
+
+          <div className="space-y-3 text-sm text-slate-300">
+
+            <p>
+              <strong>Case ID:</strong> {caseItem.id}
+            </p>
+
+            <p>
+              <strong>Upload Batch:</strong>
+            </p>
+
+            <p className="break-all">
+              {caseItem.upload_batch_uuid}
+            </p>
+
+            <p>
+              <strong>Current Status:</strong> {status}
+            </p>
+
+            <p>
+              <strong>Score:</strong> {caseItem.score}
+            </p>
+
+            <p>
+              <strong>Severity:</strong> {caseItem.severity}
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
     </div>
   );
 }

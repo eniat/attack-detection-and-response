@@ -7,6 +7,7 @@ import {
   getCasesForBatch
 } from "@/lib/api";
 import { Alert, Case, Event } from "@/lib/types";
+import Link from "next/link";
 
 type PageProps = {
   params: Promise<{
@@ -53,8 +54,9 @@ export default async function EventBatchPage({ params }: PageProps) {
         ) : (
           <div className="grid gap-4 md:grid-cols-2">
             {cases.map((caseItem) => (
-              <div
+              <Link
                 key={caseItem.id}
+                href={`/cases/${caseItem.id}`}
                 className="rounded-lg border border-slate-800 bg-slate-900 p-4"
               >
                 <div className="mb-2 flex items-center gap-2">
@@ -75,7 +77,7 @@ export default async function EventBatchPage({ params }: PageProps) {
                 <p className="text-sm text-slate-300">
                   {caseItem.summary}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         )}
