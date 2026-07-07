@@ -54,18 +54,6 @@ export async function getCaseComments(caseId: number): Promise<CaseComment[]> {
   return fetchJson<CaseComment[]>(`/cases/${caseId}/comments`);
 }
 
-export async function runDetections() {
-  return fetchJson("/alerts/run", {
-    method: "POST"
-  });
-}
-
-export async function buildCases() {
-  return fetchJson("/cases/build", {
-    method: "POST"
-  });
-}
-
 export async function runDetectionsForBatch(uploadBatchUuid: string): 
 Promise<{ message: string; alerts_created: number }> {
   return fetchJson<{ message: string; alerts_created: number }>(
