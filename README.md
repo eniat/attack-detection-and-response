@@ -1,4 +1,5 @@
 # Cloud Identity Attack Detection & Response Platform
+![tests](https://github.com/eniat/attack-detection-and-response/actions/workflows/ci.yml/badge.svg)
 
 ## Overview
 
