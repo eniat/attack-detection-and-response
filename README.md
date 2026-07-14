@@ -82,5 +82,5 @@ A password spray attack results in one successful login, followed by suspicious 
 ## Limitations
 Synthetic dataset. No live Microsoft tenant integration by default. Response actions are recommendations only.
 
-## Licence
+## License
 This project is licensed under the MIT Licence. See the `LICENSE` file for details.
