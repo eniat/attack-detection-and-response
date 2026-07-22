@@ -38,13 +38,18 @@ This UUID links:
 
 This keeps separate investigations isolated from each other and avoids mixing events from multiple uploads.
 
-## Key detections
-- Password spraying
-- Brute force
-- Impossible travel
-- MFA fatigue
-- Suspicious OAuth consent
-- Suspicious mailbox forwarding
+## Detections
+
+Each detection runs over a batch of normalised events and emits scored, MITRE-mapped alerts.
+
+| Detection | Rule | MITRE | Trigger logic |
+|---|---|---|---|
+| Password spraying | DET-001 | T1110.003 | One source IP with 20+ failed sign-ins across 10+ distinct users |
+| Brute force | DET-002 | T1110 | One source IP with 10+ failed sign-ins against a single user |
+| Impossible travel | DET-003 | T1078 | Same user with successful sign-ins from two countries under 2 hours apart |
+| MFA fatigue | DET-004 | T1621 | 5+ MFA denials for a user followed by a successful MFA approval |
+| Suspicious OAuth consent | DET-005 | T1566 | Consent granted to an app requesting Mail.Read, Files.Read.All or offline_access |
+| Suspicious mailbox forwarding | DET-006 | T1114 | New-InboxRule creating an external forward |
 
 ## Tech Stack
 - Backend: Python, FastAPI, SQLAlchemy, Pandas
@@ -52,6 +57,20 @@ This keeps separate investigations isolated from each other and avoids mixing ev
 - Frontend: Next.js, TypeScript, Tailwind CSS
 - DevOps: Docker Compose
 - Testing: Pytest
+
+## Screenshots
+
+Case investigation view: grouped alerts, MITRE ATT&CK mapping, severity scoring and recommended response actions. Data shown is synthetic (Microsoft `contoso.com` demo dataset).
+
+![Case investigation view](docs/case-investigation-view.png)
+
+End-to-end pipeline: raw sign-in events ingested, detections run, alerts raised and cases built from a single upload batch.
+
+![Event batch pipeline](docs/event-batch-pipeline.png)
+
+Alerts view: Detections across brute force, impossible travel, MFA fatigue, OAuth consent, mailbox forwarding and password spray, each mapped to a MITRE technique and scored.
+
+![Alerts with MITRE mapping](docs/alerts-mitre-mapping.png)
 
 ## Running Locally
 
