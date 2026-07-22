@@ -1,4 +1,5 @@
 # Cloud Identity Attack Detection & Response Platform
+![tests](https://github.com/eniat/attack-detection-and-response/actions/workflows/ci.yml/badge.svg)
 
 ## Overview
 
@@ -82,5 +83,5 @@ A password spray attack results in one successful login, followed by suspicious 
 ## Limitations
 Synthetic dataset. No live Microsoft tenant integration by default. Response actions are recommendations only.
 
-## Licence
+## License
 This project is licensed under the MIT Licence. See the `LICENSE` file for details.
