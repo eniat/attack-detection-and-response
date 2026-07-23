@@ -9,6 +9,7 @@ mitre:
 logic:
   min_mfa_denials: 5
   requires_success_after_denials: true
+  window_minutes: 60
 recommended_actions:
   - Contact the user to confirm whether they approved the MFA request.
   - Revoke active sessions.

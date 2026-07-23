@@ -8,7 +8,12 @@ mitre:
   technique_name: Email Collection
 logic:
   operation: New-InboxRule
-  suspicious_field: forward_to
+  suspicious_fields:
+    - forward_to
+    - redirect_to
+    - forward_as_attachment_to
+  require_external_recipient: true
+  internal_domains_source: INTERNAL_DOMAINS environment variable
 recommended_actions:
   - Disable the suspicious inbox rule.
   - Review mailbox access logs.

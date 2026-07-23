@@ -8,6 +8,7 @@ mitre:
   technique_name: Brute Force
 logic:
   min_failed_attempts: 10
+  window_minutes: 30
   grouping:
     - source_ip
     - user_principal_name
