@@ -44,12 +44,12 @@ Each detection runs over a batch of normalised events and emits scored, MITRE-ma
 
 | Detection | Rule | MITRE | Trigger logic |
 |---|---|---|---|
-| Password spraying | DET-001 | T1110.003 | One source IP with 20+ failed sign-ins across 10+ distinct users |
-| Brute force | DET-002 | T1110 | One source IP with 10+ failed sign-ins against a single user |
+| Password spraying | DET-001 | T1110.003 | One source IP with 20+ failed sign-ins across 10+ distinct users inside a rolling 60 minute window |
+| Brute force | DET-002 | T1110 | One source IP with 10+ failed sign-ins against a single user inside a rolling 30 minute window |
 | Impossible travel | DET-003 | T1078 | Same user with successful sign-ins from two countries under 2 hours apart |
 | MFA fatigue | DET-004 | T1621 | 5+ MFA denials for a user followed by a successful MFA approval |
 | Suspicious OAuth consent | DET-005 | T1566 | Consent granted to an app requesting Mail.Read, Files.Read.All or offline_access |
-| Suspicious mailbox forwarding | DET-006 | T1114 | New-InboxRule creating an external forward |
+| Suspicious mailbox forwarding | DET-006 | T1114 | New-InboxRule forwarding to a domain outside `INTERNAL_DOMAINS` |
 
 ## Tech Stack
 - Backend: Python, FastAPI, SQLAlchemy, Pandas
